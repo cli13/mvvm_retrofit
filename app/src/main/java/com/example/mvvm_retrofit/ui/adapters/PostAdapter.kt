@@ -5,11 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_retrofit.databinding.PostItemBinding
+import com.example.mvvm_retrofit.network.response.User
 
-class PostAdapter(var list: List<Any>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+class PostAdapter(private var list: List<User>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     inner class ViewHolder(private val binding: PostItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(todo: Any) {
-
+        fun bind(u : User) {
+            binding.tvDescription.text = u.body
+            binding.tvTitle.text = u.title
+            binding.tvUsername.text = u.name
         }
     }
 
@@ -25,5 +28,10 @@ class PostAdapter(var list: List<Any>) : RecyclerView.Adapter<PostAdapter.ViewHo
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    fun updateList(it: List<User>?) {
+        list = it!!
+        notifyDataSetChanged()
     }
 }
